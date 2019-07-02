@@ -11,13 +11,13 @@
             android:theme="@style/NoActionBar">
         <activity android:name=".activities.DeletedListActivity">
         </activity>
-        <activity android:name=".activities.HistoryActivity">
-        </activity>
+
         <activity android:name=".activities.SetActivity">
         </activity>
         <activity android:name=".activities.DetailActivity">
         </activity>
-        <activity android:name=".activities.SplashActivity">
+        <activity android:name=".activities.SplashActivity"
+                  android:theme="@style/LaunchTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
