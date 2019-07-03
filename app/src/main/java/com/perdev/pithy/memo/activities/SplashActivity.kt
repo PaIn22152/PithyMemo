@@ -6,17 +6,22 @@ import com.perdev.pithy.memo.R
 
 class SplashActivity : BaseActivity() {
 
+    private val pkg: String = "com.perdev.pithy.memo"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        delayJump()
+        if (pkg == this.packageName) {
+            delayJump()
+        }
+
     }
 
     private fun delayJump() {
         mHandler.postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, DetailActivity::class.java))
             finish()
-        }, 1300L)
+        }, 2000L)
     }
 }
