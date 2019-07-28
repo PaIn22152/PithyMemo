@@ -1,7 +1,9 @@
 package com.perdev.pithy.memo.activities
 
+import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+
 
 /**
  * Project    PithyMemo-git
@@ -10,6 +12,10 @@ import android.support.v7.app.AppCompatActivity
  * Author     Payne.
  * About      类描述：
  */
-abstract class BaseActivity : AppCompatActivity(){
-    var mHandler:Handler=Handler();
+abstract class BaseActivity : AppCompatActivity() {
+    var mHandler: Handler = Handler()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 }

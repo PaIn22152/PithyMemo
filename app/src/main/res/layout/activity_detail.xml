@@ -8,6 +8,7 @@
   tools:context=".activities.DetailActivity">
 
   <android.support.v7.widget.AppCompatEditText
+    android:id="@+id/acet_ad_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:letterSpacing="0.05"

@@ -20,7 +20,7 @@ class SplashActivity : BaseActivity() {
 
     private fun delayJump() {
         mHandler.postDelayed({
-            startActivity(Intent(this, DetailActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, 2000L)
     }

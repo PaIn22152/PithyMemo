@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Memo</string>
+    <string name="app_name">Pithy Memo</string>
+    <string name="setting">Setting</string>
+    <string name="auto_save">Auto save</string>
+    <string name="set_pwd">Set Password</string>
+    <string name="modify_pwd">Modify Password</string>
+    <string name="pwd_hints">Password Hint</string>
 </resources>
