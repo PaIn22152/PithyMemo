@@ -59,4 +59,20 @@ dependencies {
 
     //circleimageview
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+
+
+
+
+    //RXJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVer"
+    //RXAndroid
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVer"
+
+
+    //Logger
+    implementation "com.orhanobut:logger:$loggerVer"
+
+    //RxBus
+    implementation "com.hwangjr.rxbus:rxbus:$rxBusVer"
 }

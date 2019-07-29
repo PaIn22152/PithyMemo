@@ -14,14 +14,19 @@ import org.jetbrains.anko.db.TEXT
  * Author     Payne.
  * About      类描述：
  */
-data class MemoBean(val id: Int, val content: String,val lock:Boolean) {
+data class MemoBean(val id: Int, val content: String, val lock: Int, val createTime: String, val modifyTime: String) {
     companion object {
-        val COLUMN_ID = "id"
         val TABLE_NAME = "memos"
-        val COLUMN_CONTENT = "content"
-        val COLUMN_LOCK = "lock"
+
+        val COLUMN_ID = "_mid"//id
+        val COLUMN_CONTENT = "_content"//内容
+        val COLUMN_LOCK = "_lock"//是否加锁    1true  0false
+        val COLUMN_CTIME = "_ctime"//创建时间  long->string
+        val COLUMN_MTIME = "_mtime"//修改时间  long->string
+
     }
 }
+
 
 
 

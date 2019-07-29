@@ -1,24 +1,14 @@
 package com.perdev.pithy.memo.activities
 
-import android.app.ListActivity
-import android.graphics.Color
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
-import android.view.KeyEvent
-import android.widget.TextView
 
 import com.perdev.pithy.memo.R
-import com.perdev.pithy.memo.utils.log
-import kotlinx.android.synthetic.main.activity_detail.*
+import com.perdev.pithy.memo.utils.logD
 import org.jetbrains.anko.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.sdk27.coroutines.onLongClick
-import kotlin.math.log
 
 class DetailActivity : BaseActivity() {
 
@@ -35,7 +25,7 @@ class DetailActivity : BaseActivity() {
 
     private fun save() {
 
-        log(content.toString())
+        logD(content.toString())
     }
 
     inner class DetailUI : AnkoComponent<DetailActivity> {

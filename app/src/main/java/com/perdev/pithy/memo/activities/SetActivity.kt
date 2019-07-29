@@ -1,18 +1,15 @@
 package com.perdev.pithy.memo.activities
 
-import android.opengl.Visibility
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
+import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.perdev.pithy.memo.R
+import com.perdev.pithy.memo.bean.MemoBean
+import com.perdev.pithy.memo.db.MemoBeanDB
 import com.perdev.pithy.memo.utils.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.appcompat.v7.alertDialogLayout
-import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class SetActivity : AppCompatActivity() {
@@ -20,7 +17,28 @@ class SetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SetUI().setContentView(this@SetActivity)
-        log("autoSave = " + autoSave)
+        logD("autoSave = $autoSave")
+
+        insertData()
+        queryData()
+    }
+
+
+    fun insertData() {
+        val m1 = MemoBean(1, "c_1", 1, System.currentTimeMillis().toString(), System.currentTimeMillis().toString())
+        MemoBeanDB.insertMemo(this@SetActivity, m1)
+
+        val m2 = MemoBean(2, "c_2", 0, System.currentTimeMillis().toString(), System.currentTimeMillis().toString())
+        MemoBeanDB.insertMemo(this@SetActivity, m2)
+
+        val m3 = MemoBean(3, "c_3", 1, System.currentTimeMillis().toString(), System.currentTimeMillis().toString())
+        MemoBeanDB.insertMemo(this@SetActivity, m3)
+    }
+
+    fun queryData() {
+        val queryAllMemos = MemoBeanDB.queryAllMemos(this@SetActivity)
+        logD(queryAllMemos.toString())
+
     }
 
 
@@ -144,7 +162,7 @@ class SetActivity : AppCompatActivity() {
 
                 }
                 noButton {
-                    
+
                 }
             }.show()
         }

@@ -1,6 +1,7 @@
 package com.perdev.pithy.memo.utils
 
 import android.util.Log
+import java.util.logging.Logger
 
 /**
  * Project    PithyMemo-git
@@ -10,14 +11,15 @@ import android.util.Log
  * About      类描述：
  */
 
-val TAG = "payne_tag"
-val SHOW = true
+const val TAG = "payne_tag"
+const val SHOW = true
 
 
-fun log(s: String) {
+fun logD(s: String) {
     if (SHOW) {
 
         Log.d(TAG, s)
+
     }
 
 }

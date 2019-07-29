@@ -15,9 +15,11 @@ import kotlin.reflect.KProperty
  * About      类描述：
  */
 class Preference<T>(val name: String, private val default: T) {
+    val SP_NAME = "pm_sp"
 
     private val prefs: SharedPreferences by lazy {
-        MyApp.instance.applicationContext.getSharedPreferences(name, Context.MODE_PRIVATE) }
+        MyApp.instance.applicationContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+    }
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         Log.i("info", "调用$this 的getValue()")
