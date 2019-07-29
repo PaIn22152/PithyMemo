@@ -3,10 +3,12 @@ package com.perdev.pithy.memo.activities
 import android.content.Intent
 import android.os.Bundle
 import com.perdev.pithy.memo.R
+import com.perdev.pithy.memo.utils.RXCallback
+import com.perdev.pithy.memo.utils.rxTimer
 
 class SplashActivity : BaseActivity() {
 
-    private val pkg: String = "com.perdev.pithy.memo"
+    private val pkg = "com.perdev.pithy.memo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +21,13 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun delayJump() {
-        mHandler.postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }, 2000L)
+
+
+        rxTimer(2000L, true, object : RXCallback {
+            override fun call() {
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish()
+            }
+        })
     }
 }

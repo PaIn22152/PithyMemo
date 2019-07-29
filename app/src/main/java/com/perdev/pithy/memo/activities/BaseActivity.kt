@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity
  * About      类描述：
  */
 abstract class BaseActivity : AppCompatActivity() {
-    var mHandler: Handler = Handler()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

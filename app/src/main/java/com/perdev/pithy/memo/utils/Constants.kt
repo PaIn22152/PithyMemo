@@ -7,14 +7,14 @@ package com.perdev.pithy.memo.utils
  * Author     Payne.
  * About      类描述：
  */
-val text_size = 17f
-val title_size = 20f
-val title_left_margin = 13
-val item_left_margin = 17
-val title_right_margin = 5
-val item_right_margin = 5
-val item_height = 50
-val item_interval = 7
-val status_bar_height = 20
-val image_paddind = 10
-val line_height=1
+const val text_size = 17f
+const val title_size = 20f
+const val title_left_margin = 13
+const val item_left_margin = 17
+const val title_right_margin = 5
+const val item_right_margin = 5
+const val item_height = 50
+const val item_interval = 7
+const val status_bar_height = 20
+const val image_padding = 10
+const val line_height = 1

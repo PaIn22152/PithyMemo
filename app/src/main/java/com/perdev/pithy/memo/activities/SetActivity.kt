@@ -25,14 +25,16 @@ class SetActivity : AppCompatActivity() {
 
 
     fun insertData() {
-        val m1 = MemoBean(1, "c_1", 1, System.currentTimeMillis().toString(), System.currentTimeMillis().toString())
+        val m1 = MemoBean(
+            currentMid++,
+            "content",
+            1,
+            System.currentTimeMillis().toString(),
+            System.currentTimeMillis().toString()
+        )
         MemoBeanDB.insertMemo(this@SetActivity, m1)
 
-        val m2 = MemoBean(2, "c_2", 0, System.currentTimeMillis().toString(), System.currentTimeMillis().toString())
-        MemoBeanDB.insertMemo(this@SetActivity, m2)
 
-        val m3 = MemoBean(3, "c_3", 1, System.currentTimeMillis().toString(), System.currentTimeMillis().toString())
-        MemoBeanDB.insertMemo(this@SetActivity, m3)
     }
 
     fun queryData() {
@@ -93,7 +95,7 @@ class SetActivity : AppCompatActivity() {
                     gravity = Gravity.CENTER_VERTICAL
                     backgroundColorResource = R.color.grey_item
                     textView(
-                        if (has_pwd) R.string.set_pwd else R.string.modify_pwd
+                        if (hasPwd) R.string.set_pwd else R.string.modify_pwd
                     ) {
                         textSize = text_size
                         textColorResource = R.color.grey_text
@@ -110,7 +112,7 @@ class SetActivity : AppCompatActivity() {
                 }
 
                 linearLayout {
-                    visibility = if (has_pwd) VISIBLE else GONE
+                    visibility = if (hasPwd) VISIBLE else GONE
                     gravity = Gravity.CENTER_VERTICAL
                     textView {
                         backgroundColorResource = R.color.grey_item
@@ -125,7 +127,7 @@ class SetActivity : AppCompatActivity() {
                 }
 
                 linearLayout {
-                    visibility = if (has_pwd) VISIBLE else GONE
+                    visibility = if (hasPwd) VISIBLE else GONE
                     gravity = Gravity.CENTER_VERTICAL
                     backgroundColorResource = R.color.grey_item
                     textView(R.string.pwd_hints) {

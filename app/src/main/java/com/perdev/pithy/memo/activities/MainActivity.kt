@@ -1,13 +1,8 @@
 package com.perdev.pithy.memo.activities
 
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Gravity
-import android.view.View
-import android.widget.ImageView
 import com.perdev.pithy.memo.R
 import com.perdev.pithy.memo.utils.*
 import org.jetbrains.anko.*
@@ -52,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                         onClick {
                             startActivity<SetActivity>()
                         }
-                        padding = dip(image_paddind)
+                        padding = dip(image_padding)
                     }.lparams(dip(item_height), dip(item_height)) {
                         rightMargin = dip(title_right_margin)
                     }
