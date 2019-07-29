@@ -1,4 +1,4 @@
-package com.perdev.pithy.memo.bean
+package com.perdev.pithy.memo.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

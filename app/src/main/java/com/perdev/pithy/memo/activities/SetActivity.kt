@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.perdev.pithy.memo.R
-import com.perdev.pithy.memo.bean.MemoBean
+import com.perdev.pithy.memo.db.MemoBean
 import com.perdev.pithy.memo.db.MemoBeanDB
 import com.perdev.pithy.memo.utils.*
 import org.jetbrains.anko.*

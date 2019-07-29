@@ -1,7 +1,6 @@
 package com.perdev.pithy.memo.db
 
 import android.content.Context
-import com.perdev.pithy.memo.bean.MemoBean
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select

@@ -2,7 +2,6 @@ package com.perdev.pithy.memo.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.perdev.pithy.memo.bean.MemoBean
 import org.jetbrains.anko.db.*
 
 /**

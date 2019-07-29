@@ -1,7 +1,6 @@
 package com.perdev.pithy.memo;
 
 
-
 /**
  * Project    PithyMemo-git
  * Path       com.perdev.pithy.memo
@@ -13,6 +12,6 @@ public class TestJava {
 
     private void d() {
 
-}
+    }
 
-        }
+}
