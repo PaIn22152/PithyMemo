@@ -94,7 +94,7 @@ class SetActivity : AppCompatActivity() {
                     //set pwd
                     gravity = Gravity.CENTER_VERTICAL
                     backgroundColorResource = R.color.grey_item
-                    textView(
+                    val input = textView(
                         if (hasPwd) R.string.set_pwd else R.string.modify_pwd
                     ) {
                         textSize = text_size
@@ -104,7 +104,7 @@ class SetActivity : AppCompatActivity() {
                     }
                     onClick {
                         checkPwd()
-                        pwd = "123456"
+                        pwd = string2Md5(input.text.toString())
                     }
 
                 }.lparams(matchParent, dip(item_height)) {
