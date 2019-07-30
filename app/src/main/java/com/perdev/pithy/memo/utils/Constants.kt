@@ -16,5 +16,5 @@ const val item_right_margin = 5
 const val item_height = 50
 const val item_interval = 7
 const val status_bar_height = 20
-const val image_padding = 10
+const val image_padding = 8
 const val line_height = 1

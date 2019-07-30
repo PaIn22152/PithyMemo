@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.perdev.pithy.memo.R
 import com.perdev.pithy.memo.utils.RXCallback
 import com.perdev.pithy.memo.utils.rxTimer
+import org.jetbrains.anko.startActivity
 
 class SplashActivity : BaseActivity() {
 
@@ -25,7 +26,7 @@ class SplashActivity : BaseActivity() {
 
         rxTimer(2000L, true, object : RXCallback {
             override fun call() {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                this@SplashActivity.startActivity<MainActivity>()
                 finish()
             }
         })

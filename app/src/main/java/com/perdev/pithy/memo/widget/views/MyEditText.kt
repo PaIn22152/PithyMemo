@@ -1,13 +1,12 @@
-package com.perdev.pithy.memo.views
+package com.perdev.pithy.memo.widget.views
 
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.EditText
 
 /**
  * Project    PithyMemo-git
- * Path       com.perdev.pithy.memo.views
+ * Path       com.perdev.pithy.memo.widget.views
  * Date       2019/07/03 - 10:24
  * Author     Payne.
  * About      类描述：

@@ -1,5 +1,6 @@
 package com.perdev.pithy.memo.activities
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -7,14 +8,28 @@ import android.text.TextWatcher
 import android.view.Gravity
 
 import com.perdev.pithy.memo.R
+import com.perdev.pithy.memo.db.MemoBean
+import com.perdev.pithy.memo.db.MemoBeanDB
 import com.perdev.pithy.memo.utils.logD
 import org.jetbrains.anko.*
 
 class DetailActivity : BaseActivity() {
 
 
+    companion object {
+        fun jump(context: Context, memo: MemoBean) {
+            context.startActivity<DetailActivity>("memo" to memo)
+        }
+    }
+
+
+    private var memo: MemoBean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        memo = intent.getParcelableExtra<MemoBean>("memo")
+
+
         DetailUI().setContentView(this@DetailActivity)
 
 
@@ -25,7 +40,14 @@ class DetailActivity : BaseActivity() {
 
     private fun save() {
 
-        logD(content.toString())
+        logD(" savedata  =  " + content.toString())
+
+        if (memo != null) {
+            memo!!.content = content.toString()
+            MemoBeanDB.update(this@DetailActivity, memo!!)
+        }
+
+
     }
 
     inner class DetailUI : AnkoComponent<DetailActivity> {
@@ -33,7 +55,7 @@ class DetailActivity : BaseActivity() {
         override fun createView(ui: AnkoContext<DetailActivity>) = with(ui) {
             relativeLayout {
                 lparams(matchParent, matchParent)
-                editText {
+                editText(if (memo != null) memo!!.content else "") {
                     hint = "input your memo"
                     gravity = Gravity.START
                     textSize = 25f
@@ -45,6 +67,7 @@ class DetailActivity : BaseActivity() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         letterSpacing = 0.1F
                     }
+
                     // 监听输入框输入情况
                     addTextChangedListener(object : TextWatcher {
                         override fun afterTextChanged(s: Editable?) {
