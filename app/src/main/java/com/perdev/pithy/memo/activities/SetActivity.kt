@@ -19,29 +19,11 @@ class SetActivity : AppCompatActivity() {
         SetUI().setContentView(this@SetActivity)
         logD("autoSave = $autoSave")
 
-        insertData()
-        queryData()
-    }
-
-
-    fun insertData() {
-        val m1 = MemoBean(
-            currentMid++,
-            "content",
-            1,
-            System.currentTimeMillis().toString(),
-            System.currentTimeMillis().toString()
-        )
-        MemoBeanDB.insertMemo(this@SetActivity, m1)
-
 
     }
 
-    fun queryData() {
-        val queryAllMemos = MemoBeanDB.queryAllMemos(this@SetActivity)
-        logD(queryAllMemos.toString())
 
-    }
+
 
 
     inner class SetUI : AnkoComponent<SetActivity> {

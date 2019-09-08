@@ -37,11 +37,13 @@ class MyDatabaseOpenHelper private constructor(ctx: Context) :
     private fun createMemoTab(db: SQLiteDatabase) {
         db.createTable(
             MemoBean.TABLE_NAME, true,
-            MemoBean.COLUMN_ID to INTEGER + PRIMARY_KEY + UNIQUE,
+            MemoBean.COLUMN_ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT + UNIQUE,
+//            MemoBean.COLUMN_ID to INTEGER + PRIMARY_KEY  + UNIQUE,
             MemoBean.COLUMN_CONTENT to TEXT,
             MemoBean.COLUMN_LOCK to INTEGER,
             MemoBean.COLUMN_CTIME to TEXT,
-            MemoBean.COLUMN_MTIME to TEXT
+            MemoBean.COLUMN_MTIME to TEXT,
+            MemoBean.COLUMN_VALID to INTEGER
         )
     }
 

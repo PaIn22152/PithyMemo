@@ -19,22 +19,40 @@ object MemoBeanDB {
         context.database.use {
             insert(
                 MemoBean.TABLE_NAME,
-                MemoBean.COLUMN_ID to bean.id,
+//                MemoBean.COLUMN_ID to bean.id,
                 MemoBean.COLUMN_CONTENT to bean.content,
                 MemoBean.COLUMN_LOCK to bean.lock,
                 MemoBean.COLUMN_CTIME to bean.createTime,
-                MemoBean.COLUMN_MTIME to bean.modifyTime
+                MemoBean.COLUMN_MTIME to bean.modifyTime,
+                MemoBean.COLUMN_VALID to bean.valid
             )
         }
     }
 
     fun queryAllMemos(context: Context): List<MemoBean> {
+        return queryAllMemos(context, true)
+    }
+
+
+    fun queryAllMemos(context: Context, allValid: Boolean): List<MemoBean> {
         val rowParser = classParser<MemoBean>()
-        return context.database.writableDatabase
+        val queryAllMemos = context.database.writableDatabase
             .select(MemoBean.TABLE_NAME)
             .groupBy(MemoBean.COLUMN_ID)
             .parseList(rowParser)
+        if (!allValid) {
+            return queryAllMemos;
+        }
+        var res = ArrayList<MemoBean>()
+        for (i in queryAllMemos) {
+            if (i.valid == 1) {
+                res.add(i)
+            }
+        }
+        return res
+
     }
+
 
     fun queryMemo(context: Context, id: Int): MemoBean {
         val rowParser = classParser<MemoBean>()
@@ -55,7 +73,8 @@ object MemoBeanDB {
                 MemoBean.COLUMN_CONTENT to bean.content,
                 MemoBean.COLUMN_LOCK to bean.lock,
                 MemoBean.COLUMN_CTIME to bean.createTime,
-                MemoBean.COLUMN_MTIME to bean.modifyTime
+                MemoBean.COLUMN_MTIME to bean.modifyTime,
+                MemoBean.COLUMN_VALID to bean.valid
             )
             .whereArgs(
                 MemoBean.COLUMN_ID + " = {mid}",
