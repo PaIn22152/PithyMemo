@@ -1,5 +1,6 @@
 package com.perdev.pithy.memo.activities
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -13,8 +14,7 @@ import com.perdev.pithy.memo.R
 import com.perdev.pithy.memo.db.MemoBean
 import com.perdev.pithy.memo.db.MemoBeanDB
 import com.perdev.pithy.memo.events.MemoSaveEvent
-import com.perdev.pithy.memo.utils.autoSave
-import com.perdev.pithy.memo.utils.logD
+import com.perdev.pithy.memo.utils.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
@@ -61,6 +61,18 @@ class DetailActivity : BaseActivity() {
         return c.isNotEmpty()
     }
 
+    private fun invalid() {
+        if (memo != null) {
+            memo!!.valid = 0
+            updateMemo()
+        }
+    }
+
+    private fun updateMemo() {
+        MemoBeanDB.update(this@DetailActivity, memo!!)
+        RxBus.get().post(MemoSaveEvent())
+    }
+
     private fun save() {
 
 
@@ -72,19 +84,15 @@ class DetailActivity : BaseActivity() {
 
             logD(" savedata  memo =  " + memo.toString())
             if (add) {
-                if (checkInputNotEmpty()) {
-                    MemoBeanDB.insertMemo(this@DetailActivity, memo!!)
+                if (!checkInputNotEmpty()) {
+                    return
                 }
             } else {
-                if (checkInputNotEmpty()) {
-                    MemoBeanDB.update(this@DetailActivity, memo!!)
-                } else {
+                if (!checkInputNotEmpty()) {
                     memo!!.valid = 0//备忘录置为无效
-                    MemoBeanDB.update(this@DetailActivity, memo!!)
                 }
-
             }
-            RxBus.get().post(MemoSaveEvent())
+            updateMemo()
 
         }
 
@@ -94,8 +102,69 @@ class DetailActivity : BaseActivity() {
     inner class DetailUI : AnkoComponent<DetailActivity> {
 
         override fun createView(ui: AnkoContext<DetailActivity>) = with(ui) {
-            relativeLayout {
+            verticalLayout {
                 lparams(matchParent, matchParent)
+                linearLayout {
+                    lparams(matchParent, dip(item_height) + dimen(R.dimen.dp_25)) {
+                        setPadding(
+                            0, dimen(R.dimen.dp_25),
+                            0, 0
+                        )
+                    }
+                    backgroundColorResource = R.color.grey_item
+
+                    imageView(R.mipmap.save) {
+                        onClick {
+                            save()
+                            toast("save success!")
+                        }
+                        padding = dip(image_padding)
+
+                    }.lparams(dip(item_height), dip(item_height)) {
+                        weight = 1f
+                        gravity = Gravity.CENTER
+                    }
+
+                    imageView(R.mipmap.delete) {
+                        onClick {
+                            AlertDialog
+                                .Builder(this@DetailActivity)
+                                .setNegativeButton("NO") { _, _ ->
+                                    run {
+
+                                    }
+                                }
+                                .setPositiveButton("YES") { _, _ ->
+                                    run {
+                                        invalid()
+                                        finish()
+                                    }
+                                }
+                                .setMessage("Do you want to delete this memo?")
+                                .show()
+
+                        }
+                        padding = dip(image_padding)
+                    }.lparams(dip(item_height), dip(item_height)) {
+                        weight = 1f
+                        gravity = Gravity.CENTER
+                    }
+                    imageView(
+                        if (memo!!.lock == 1) R.mipmap.lock
+                        else R.mipmap.unlock
+                    ) {
+                        onClick {
+
+                        }
+                        padding = dip(image_padding)
+                    }.lparams(dip(item_height), dip(item_height)) {
+                        weight = 1f
+                        gravity = Gravity.CENTER
+                    }
+
+
+                }
+
                 editText(if (memo != null) memo!!.content else "") {
                     hint = "input your memo"
                     gravity = Gravity.START
@@ -131,34 +200,15 @@ class DetailActivity : BaseActivity() {
                         ) {
                         }
                     })
-                }.lparams(width = matchParent, height = matchParent) {
-                    setMargins(
-                        dimen(R.dimen.dp_5), dimen(R.dimen.dp_20),
-                        dimen(R.dimen.dp_5), 0
-                    )
-
                 }
-                verticalLayout {
-                    lparams(wrapContent, wrapContent)
-                    backgroundColorResource = R.color.grey_item
+                    .lparams(width = matchParent, height = matchParent) {
+                        setMargins(
+                            dimen(R.dimen.dp_5), dimen(R.dimen.dp_5),
+                            dimen(R.dimen.dp_5), 0
+                        )
 
-                    imageView(R.mipmap.save) {
-                        onClick {
-                            save()
-                        }
                     }
-                    imageView(R.mipmap.delete) {
-                        onClick {
 
-                        }
-                    }
-                    imageView(if (memo!!.lock == 1) R.mipmap.lock
-                    else R.mipmap.unlock) {
-                        onClick {
-
-                        }
-                    }
-                }
 
             }
 
