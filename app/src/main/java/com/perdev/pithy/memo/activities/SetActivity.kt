@@ -85,7 +85,7 @@ class SetActivity : AppCompatActivity() {
                         leftMargin = dip(item_left_margin)
                     }
                     onClick {
-                        checkPwd()
+                         checkPwd()
                         pwd = string2Md5(input.text.toString())
                     }
 
@@ -142,12 +142,13 @@ class SetActivity : AppCompatActivity() {
                         }
                     }
                 }
-                yesButton {
+                positiveButton("Yes"){
 
                 }
-                noButton {
+                negativeButton("No"){
 
                 }
+
             }.show()
         }
     }

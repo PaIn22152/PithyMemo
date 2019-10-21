@@ -1,6 +1,7 @@
 package com.perdev.pithy.memo.activities
 
 import android.app.AlertDialog
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import com.hwangjr.rxbus.RxBus
 
 import com.perdev.pithy.memo.R
@@ -38,7 +40,7 @@ class DetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        memo = intent.getParcelableExtra<MemoBean>("memo")
+        memo = intent.getParcelableExtra("memo")
         add = memo == null
         if (add) {
             memo = MemoBean()
@@ -68,8 +70,24 @@ class DetailActivity : BaseActivity() {
         }
     }
 
+    private fun lockOrUnlock() {
+        if (memo != null) {
+            if (memo!!.lock == 0) {
+                memo!!.lock = 1
+            } else {
+                memo!!.lock = 0
+            }
+            updateMemo()
+        }
+    }
+
     private fun updateMemo() {
         MemoBeanDB.update(this@DetailActivity, memo!!)
+        RxBus.get().post(MemoSaveEvent())
+    }
+
+    private fun insertMemo() {
+        MemoBeanDB.insertMemo(this@DetailActivity, memo!!)
         RxBus.get().post(MemoSaveEvent())
     }
 
@@ -84,15 +102,16 @@ class DetailActivity : BaseActivity() {
 
             logD(" savedata  memo =  " + memo.toString())
             if (add) {
-                if (!checkInputNotEmpty()) {
-                    return
+                if (checkInputNotEmpty()) {
+                    insertMemo()
                 }
             } else {
                 if (!checkInputNotEmpty()) {
                     memo!!.valid = 0//备忘录置为无效
                 }
+                updateMemo()
             }
-            updateMemo()
+
 
         }
 
@@ -100,6 +119,8 @@ class DetailActivity : BaseActivity() {
     }
 
     inner class DetailUI : AnkoComponent<DetailActivity> {
+
+        var lockImg: ImageView? = null
 
         override fun createView(ui: AnkoContext<DetailActivity>) = with(ui) {
             verticalLayout {
@@ -149,11 +170,47 @@ class DetailActivity : BaseActivity() {
                         weight = 1f
                         gravity = Gravity.CENTER
                     }
-                    imageView(
+                    lockImg = imageView(
                         if (memo!!.lock == 1) R.mipmap.lock
                         else R.mipmap.unlock
                     ) {
                         onClick {
+
+                            if (memo!!.lock == 0) {
+                                val msg = "Do you want to lock this memo?"
+                                AlertDialog
+                                    .Builder(this@DetailActivity)
+                                    .setNegativeButton("NO") { _, _ ->
+                                        run {
+
+                                        }
+                                    }
+                                    .setPositiveButton("YES") { _, _ ->
+                                        run {
+                                            lockOrUnlock()
+                                            lockImg!!.setImageResource(R.mipmap.lock)
+                                        }
+                                    }
+                                    .setMessage(msg)
+                                    .show()
+                            }else{
+                                val msg = "Input password to unlock this memo."
+                                AlertDialog
+                                    .Builder(this@DetailActivity)
+                                    .setNegativeButton("NO") { _, _ ->
+                                        run {
+
+                                        }
+                                    }
+                                    .setPositiveButton("YES") { _, _ ->
+                                        run {
+                                            lockOrUnlock()
+                                            lockImg!!.setImageResource(R.mipmap.lock)
+                                        }
+                                    }
+                                    .setMessage(msg)
+                                    .show()
+                            }
 
                         }
                         padding = dip(image_padding)
